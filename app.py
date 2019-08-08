@@ -7,7 +7,7 @@ print(os.environ['APP_SETTINGS'])
 
 @app.route('/')
 def hello():
-    print(os.environ['APP_SETTINGS'])
+    print(os.environ['APP_SETTINGS'] + "ahhhh")
     return "Hello World!"
 
 
