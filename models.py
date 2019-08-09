@@ -15,4 +15,4 @@ class Note(db.Model):
         self.createdAt = datetime.datetime.utcnow()
 
     def __repr__(self): #repr returns the object
-        return "<id {}>".format(self.id)
+        return "<Message: {} & Name: {} & id: {}>".format(self.message, self.name, self.id)
