@@ -28,14 +28,14 @@ def hello():
 @app.route('/success', methods=["GET", "POST"])
 def success():
     if request.method == "POST":
-        note = Note(message=request.form["message"], name=request.form["name"])
-        db.session.add(note)
-        db.session.commit()
+        message = request.form["message"]
+        name = request.form["name"]
+        Note(message=message, name=name).add()
     return render_template("success.html", message=request.form["message"], name=request.form["name"])
 
 @app.route('/notez')
 def view_notes():
-    return render_template("notez.html", notez = Note.query.all())
+    return render_template("notez.html", notez = Note.getRandomNote())
 
 if __name__ == '__main__': #only runs if you actually call app.py (if importing app.py to another file and run, __name__ != '__main__')
     app.run()
