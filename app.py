@@ -1,8 +1,20 @@
 import os
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
+from flask_seasurf import SeaSurf
+from flask_talisman import Talisman
 
 app = Flask(__name__)
+csrf = SeaSurf(app)
+talisman = Talisman(
+    app,
+    content_security_policy = {
+        'default-src': ['\'self\'', '*.bootstrapcdn.com'],
+        'script-src': '\'self\''
+    },
+    content_security_policy_nonce_in=['script-src']
+)
+
 app.config.from_object(os.environ['APP_SETTINGS']) #changes when environment changes (e.g. testing to staging)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app) #initalizes a connection to the db
@@ -19,7 +31,6 @@ def success():
         note = Note(message=request.form["message"], name=request.form["name"])
         db.session.add(note)
         db.session.commit()
-        #print(request.form["message"])
     return render_template("success.html", message=request.form["message"], name=request.form["name"])
 
 @app.route('/notez')
