@@ -15,11 +15,16 @@
 <body>
   <div>
     <h1>LFK 9000</h1>
-    <form role="form" method='POST' action='/success'>
-      <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
-      <input type="text" name="message" placeholder="Enter a kind message" required>
-      <input type="text" name="name" placeholder="Name (optional)">
-      <input type="submit" value="Send"></input>
+    <form method='POST' action='/'>
+      {{ form.name.label}}
+      {{ form.name}}
+      dk
+      {{ form.message.label }}
+      {{ form.message }}
+      fdm
+      {{ form.submit }}
+
+      {{ form.csrf_token }}
     </form>
     <br>
   </div>

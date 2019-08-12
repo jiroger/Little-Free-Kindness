@@ -1,11 +1,12 @@
 import os
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
-from flask_seasurf import SeaSurf
+#from flask_seasurf import SeaSurf
 from flask_talisman import Talisman
+from forms import InputForm
 
 app = Flask(__name__)
-csrf = SeaSurf(app)
+#csrf = SeaSurf(app)
 talisman = Talisman(
     app,
     content_security_policy = {
@@ -21,18 +22,20 @@ db = SQLAlchemy(app) #initalizes a connection to the db
 
 from models import Note
 
-@app.route('/')
+@app.route('/', methods = ["GET", "POST"])
 def hello():
-    return render_template("index.html")
-
-@app.route('/success', methods=["GET", "POST"])
-def success():
-    if request.method == "POST":
+    form = InputForm()
+    if form.validate_on_submit():
         message = request.form["message"]
         name = request.form["name"]
         note = Note(message=message, name=name)
         note.add()
-    return render_template("success.html", message=request.form["message"], name=request.form["name"], lookupId = note.lookupId)
+        return redirect(url_for("success", message=message, name=name, lookupId = note.lookupId))
+    return render_template("index.html", form=form)
+
+@app.route('/success')
+def success():
+    return render_template("success.html", message=request.args.get("message"), name=request.args.get("name"), lookupId = request.args.get("lookupId"))
 
 @app.route('/notez')
 def view_notes():
