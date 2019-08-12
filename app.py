@@ -30,8 +30,9 @@ def success():
     if request.method == "POST":
         message = request.form["message"]
         name = request.form["name"]
-        Note(message=message, name=name).add()
-    return render_template("success.html", message=request.form["message"], name=request.form["name"])
+        note = Note(message=message, name=name)
+        note.add()
+    return render_template("success.html", message=request.form["message"], name=request.form["name"], lookupId = note.lookupId)
 
 @app.route('/notez')
 def view_notes():
