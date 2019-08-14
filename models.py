@@ -33,12 +33,15 @@ class Note(db.Model):
 
     @staticmethod
     def getRandomNote():
-        return Note.query.get(randint(1, Note.query.count()))
+        idNum = randint(1, Note.query.count())
+        Note.query.get(idNum).numViews = Note.query.get(idNum).numViews + 1
+        db.session.commit()
+        return Note.query.get(idNum)
 
     @staticmethod
     def viewNote(input):
         if Note.query.filter_by(lookupId = input).first() is not None:
-            return Note.query.filter_by(lookupId = input).first().message
+            return (Note.query.filter_by(lookupId = input).first().message + ", it has been viewed "  + str(Note.query.filter_by(lookupId = input).first().numViews))
         else:
             return "wrong input"
 
