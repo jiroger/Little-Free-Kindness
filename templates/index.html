@@ -15,7 +15,7 @@
 <body>
   <div>
     <h1>LFK 9000</h1>
-    <form method='POST' action='/'>
+    <form method='POST' action=" {{ url_for('hello') }}">
       {{ form.name.label}}
       {{ form.name}}
       dk

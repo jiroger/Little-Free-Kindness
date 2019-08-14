@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Wordcount</title>
+
+</head>
+
+<body>
+  <div>
+    <h1>look at ur post stupid</h1>
+    <form method='POST' action=" {{ url_for('view') }}">
+      {{ form.id.label}}
+      {{ form.id}}
+      dk
+      {{ form.submit }}
+
+      {{ form.csrf_token }}
+    </form>
+    <br>
+  </div>
+</body>
+
+</html>

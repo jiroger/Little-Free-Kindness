@@ -1,7 +1,7 @@
 from app import db
 import datetime
 from random import randint
-from uuid import uuid4
+import uuid
 from sqlalchemy.dialects.postgresql import UUID
 
 class Note(db.Model):
@@ -13,13 +13,14 @@ class Note(db.Model):
     name = db.Column(db.String(50))
     createdAt = db.Column(db.DateTime)
     numViews = db.Column(db.Integer())
-    lookupId = db.Column(UUID(as_uuid=True), default=uuid4)
+    lookupId = db.Column(db.String(36))
 
     def __init__(self, message, name="Anonymous"):
         self.message = message
         self.name = name
         self.createdAt = datetime.datetime.utcnow()
         self.numViews = 0
+        self.lookupId = str(uuid.uuid4())
 
     def add(self):
         db.session.add(self)
@@ -36,8 +37,8 @@ class Note(db.Model):
 
     @staticmethod
     def viewNote(input):
-        if input == self.lookupId:
-            return self.message
+        if Note.query.filter_by(lookupId = input).first() is not None:
+            return Note.query.filter_by(lookupId = input).first().message
         else:
             return "wrong input"
 

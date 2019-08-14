@@ -3,7 +3,7 @@ from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 #from flask_seasurf import SeaSurf
 from flask_talisman import Talisman
-from forms import InputForm
+from forms import InputForm, ViewForm
 
 app = Flask(__name__)
 #csrf = SeaSurf(app)
@@ -36,6 +36,13 @@ def hello():
 @app.route('/success')
 def success():
     return render_template("success.html", message=request.args.get("message"), name=request.args.get("name"), lookupId = request.args.get("lookupId"))
+
+@app.route('/view', methods = ["GET", "POST"])
+def view():
+    form = ViewForm()
+    if form.validate_on_submit():
+        return Note.viewNote(request.form["id"])
+    return render_template("view.html", form=form)
 
 @app.route('/notez')
 def view_notes():
