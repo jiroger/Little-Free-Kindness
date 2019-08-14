@@ -1,4 +1,5 @@
 import os
+from config import Config
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 #from flask_seasurf import SeaSurf
@@ -11,13 +12,16 @@ talisman = Talisman(
     app,
     content_security_policy = {
         'default-src': ['\'self\'', '*.bootstrapcdn.com'],
-        'script-src': '\'self\''
+        'script-src': ['\'self\'', 'https://www.google.com/recaptcha/', 'https://www.gstatic.com/recaptcha/'],
+        'frame-src': "https://www.google.com/recaptcha/"
     },
     content_security_policy_nonce_in=['script-src']
 )
 
+app.config.from_object(Config)
 app.config.from_object(os.environ['APP_SETTINGS']) #changes when environment changes (e.g. testing to staging)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 db = SQLAlchemy(app) #initalizes a connection to the db
 
 from models import Note

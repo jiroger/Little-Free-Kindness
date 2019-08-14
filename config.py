@@ -7,6 +7,8 @@ class Config(object): #the default config which all the other configs will inher
     CSRF_ENABLED = True
     SECRET_KEY = 'this-really-needs-to-be-changed' #need to replace with environment variable later
     SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL'] #when cd'ing into lfk, .env activates & sets DATABASE_URL to postgres://....
+    RECAPTCHA_PUBLIC_KEY = os.environ['RC_SITE_KEY']
+    RECAPTCHA_PRIVATE_KEY = os.environ['RC_SECRET_KEY']
     #all the environment variables stored in .env
 
 class ProductionConfig(Config): #lfk-pro
