@@ -12,6 +12,15 @@
     </form>
     <br>
   </div>
+  <form method="POST" action=" {{url_for('smile')}} ">
+    {{ form.like.label }}
+    {{ form.like }}
+
+    {{form.dislike.label}}
+    {{form.dislike}}
+
+    {{form.csrf_token}}
+  </form>
 </body>
 
 </html>

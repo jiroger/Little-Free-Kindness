@@ -1,13 +1,12 @@
 import os
 from config import Config
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
-#from flask_seasurf import SeaSurf
 from flask_talisman import Talisman
 from forms import InputForm, ViewForm
 
 app = Flask(__name__)
-#csrf = SeaSurf(app)
+
 talisman = Talisman(
     app,
     content_security_policy = {
@@ -48,9 +47,18 @@ def view():
         return Note.viewNote(request.form["id"])
     return render_template("view.html", form=form)
 
-@app.route('/notez')
-def view_notes():
-    return render_template("notez.html", notez = Note.getRandomNote())
+@app.route('/notez', methods='POST')
+def smile():
+    form = VoteForm()
+    if "randomNote" not in session:
+        session["randomNote"] = Note.getRandomNote()
+    if form.validate_on_submit():
+        if form.like.data:
+            session["randomNote"].update({"numLikes", session["randomNote"].numLikes + 1})
+        elif form.dislike.data:
+            session["randomNote"].update({"numDislikes", session["randomNote"].numDislikes + 1})
+    return render_template("notez.html", notez = session["randomNote"])
+
 
 if __name__ == '__main__': #only runs if you actually call app.py (if importing app.py to another file and run, __name__ != '__main__')
     app.run()

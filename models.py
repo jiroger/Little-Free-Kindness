@@ -8,12 +8,13 @@ class Note(db.Model):
     __tablename__ = "notes"
 
     id = db.Column(db.Integer, primary_key=True)
-
     message = db.Column(db.String(100), nullable="False")
     name = db.Column(db.String(50))
     createdAt = db.Column(db.DateTime)
     numViews = db.Column(db.Integer())
     lookupId = db.Column(db.String(36))
+    numLikes = db.Column(db.Integer())
+    numDislikes = db.Column(db.Integer())
 
     def __init__(self, message, name="Anonymous"):
         self.message = message
@@ -21,6 +22,8 @@ class Note(db.Model):
         self.createdAt = datetime.datetime.utcnow()
         self.numViews = 0
         self.lookupId = str(uuid.uuid4())
+        self.numLikes = 0
+        self.numDislikes = 0
 
     def add(self):
         db.session.add(self)
@@ -33,15 +36,16 @@ class Note(db.Model):
 
     @staticmethod
     def getRandomNote():
-        idNum = randint(1, Note.query.count())
+        idNum = randint(1, Note.query.count() - 1)
+        #Note.query.get(idNum).update({"numViews", Note.query.get(idNum).numViews + 1})
         Note.query.get(idNum).numViews = Note.query.get(idNum).numViews + 1
         db.session.commit()
         return Note.query.get(idNum)
 
     @staticmethod
-    def viewNote(input):
-        if Note.query.filter_by(lookupId = input).first() is not None:
-            return (Note.query.filter_by(lookupId = input).first().message + ", it has been viewed "  + str(Note.query.filter_by(lookupId = input).first().numViews))
+    def viewNote(inputUUID):
+        if Note.query.filter_by(lookupId = inputUUID).first() is not None:
+            return (Note.query.filter_by(lookupId = inputUUID).first().message + ", it has been viewed "  + str(Note.query.filter_by(lookupId = inputUUID).first().numViews))
         else:
             return "wrong input"
 

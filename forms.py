@@ -11,3 +11,7 @@ class InputForm(FlaskForm):
 class ViewForm(FlaskForm):
     id = TextField("Please enter your post's ID to view its statistics", validators=[DataRequired()])
     submit = SubmitField("Lezgo!")
+
+class VoteForm(FlaskForm):
+    like = SubmitField("Like")
+    dislike = SubmitField("Dislike")
