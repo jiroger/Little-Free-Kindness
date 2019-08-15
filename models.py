@@ -36,8 +36,7 @@ class Note(db.Model):
 
     @staticmethod
     def getRandomNote():
-        idNum = randint(1, Note.query.count() - 1)
-        #Note.query.get(idNum).update({"numViews", Note.query.get(idNum).numViews + 1})
+        idNum = randint(1, Note.query.count() - 1) if Note.query.count() > 1 else Note.query.count()
         Note.query.get(idNum).numViews = Note.query.get(idNum).numViews + 1
         db.session.commit()
         return Note.query.get(idNum)
@@ -48,6 +47,13 @@ class Note(db.Model):
             return (Note.query.filter_by(lookupId = inputUUID).first().message + ", it has been viewed "  + str(Note.query.filter_by(lookupId = inputUUID).first().numViews))
         else:
             return "wrong input"
+
+    @staticmethod
+    def returnNote(inputUUID):
+        if Note.query.filter_by(lookupId = inputUUID).first() is not None:
+            return Note.query.filter_by(lookupId = inputUUID).first()
+        else:
+            return "couldnt find"
 
     def __repr__(self): #repr returns the object
         return "<Message: {} & Name: {} & id: {}>".format(self.message, self.name, self.id)

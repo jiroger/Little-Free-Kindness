@@ -28,7 +28,6 @@ from models import Note
 @app.route('/', methods = ["GET", "POST"])
 def hello():
     form = InputForm()
-    #session.clear()
     if form.validate_on_submit():
         message = request.form["message"]
         name = request.form["name"]
@@ -55,9 +54,9 @@ def smile():
         session["randomNote"] = toJSON(Note.getRandomNote())
     if form.validate_on_submit():
         if form.like.data:
-            session["randomNote"].update({"numLikes": session["randomNote"]["numLikes"] + 1})
+            Note.returnNote(session["randomNote"]["lookupId"]).update({"numLikes": session["randomNote"]["numLikes"] + 1})
         elif form.dislike.data:
-            session["randomNote"].update({"numDislikes": session["randomNote"]["numDislikes"] + 1})
+            Note.returnNote(session["randomNote"]["lookupId"]).update({"numDislikes": session["randomNote"]["numDislikes"] + 1})
     return render_template("notez.html", notez = session["randomNote"], form=form)
 
 def toJSON(obj):
