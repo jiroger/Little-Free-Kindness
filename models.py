@@ -56,4 +56,4 @@ class Note(db.Model):
             return "couldnt find"
 
     def __repr__(self): #repr returns the object
-        return "<Message: {} & Name: {} & id: {}>".format(self.message, self.name, self.id)
+        return "<Message: {} & Name: {} & id: {} & numLikes: {} & numDislikes: {} & numViews: {}>".format(self.message, self.name, self.id, self.numLikes, self.numDislikes, self.numViews)

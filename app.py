@@ -27,6 +27,7 @@ from models import Note
 
 @app.route('/', methods = ["GET", "POST"])
 def hello():
+
     form = InputForm()
     if form.validate_on_submit():
         message = request.form["message"]
@@ -53,11 +54,14 @@ def smile():
     if "randomNote" not in session:
         session["randomNote"] = toJSON(Note.getRandomNote())
     if form.validate_on_submit():
+        tempNote = Note.returnNote(session["randomNote"]["lookupId"])
         if form.like.data:
-            Note.returnNote(session["randomNote"]["lookupId"]).update({"numLikes": session["randomNote"]["numLikes"] + 1})
+            tempNote.update({"numLikes": tempNote.numLikes + 1})
         elif form.dislike.data:
-            Note.returnNote(session["randomNote"]["lookupId"]).update({"numDislikes": session["randomNote"]["numDislikes"] + 1})
-    return render_template("notez.html", notez = session["randomNote"], form=form)
+            tempNote.update({"numDislikes": tempNote.numDislikes + 1})
+        session.clear()
+        return redirect('/notez')
+    return render_template("notez.html", notez = Note.returnNote(session["randomNote"]["lookupId"]), form=form)
 
 def toJSON(obj):
     return jsonify(message = obj.message,
