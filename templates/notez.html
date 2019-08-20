@@ -3,12 +3,6 @@
 
 <head>
   <title>Notez</title>
-  <!-- <script src="https://www.google.com/recaptcha/api.js" async defer></script> -->
-  <script nonce="{{ csp_nonce() }}">
-    function onSubmitCallback(token) {
-        document.getElementById("test").submit();
-    }
-</script>
 </head>
 
 <body>
@@ -19,18 +13,19 @@
     {{ notez.id}}
     {{ notez.lookupId}}
     {{ notez.numViews}}
-    {{ notez.numLikes}}
-    {{ notez.numDislikes}}
+    {{notez.numLikes}}
+    {{notez.numDislikes}}
     </form>
     <br>
   </div>
-  <form id="test" method="POST" action=" {{url_for('smile')}} ">
-    {{ form.like}}
+  <form method="POST" action=" {{url_for('smile')}} ">
+    {{ form.like.label }}
+    {{ form.like }}
 
-    {{ form.dislike }}
+    {{form.dislike.label}}
+    {{form.dislike}}
 
-    {{ form.csrf_token }}
-    {{form.recaptcha}}
+    {{form.csrf_token}}
   </form>
 </body>
 
