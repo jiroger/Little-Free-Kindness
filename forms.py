@@ -13,5 +13,8 @@ class ViewForm(FlaskForm):
     submit = SubmitField("Lezgo!")
 
 class VoteForm(FlaskForm):
-    like = SubmitField("Like")
+    like = SubmitField("Like",
+                        #render_kw={'class':'g-recaptcha', 'data-sitekey':'6Ldy_rMUAAAAAA_0vaf_xb7o9Ta853RjQ_9D1BLU', 'data-callback':'onSubmitCallback'}
+                        )
     dislike = SubmitField("Dislike")
+    recaptcha = RecaptchaField()

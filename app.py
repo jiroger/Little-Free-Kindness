@@ -11,7 +11,11 @@ talisman = Talisman(
     app,
     content_security_policy = {
         'default-src': ['\'self\'', '*.bootstrapcdn.com'],
-        'script-src': ['\'self\'', 'https://www.google.com/recaptcha/', 'https://www.gstatic.com/recaptcha/'],
+        'script-src': ['\'self\'',
+                        'https://www.google.com/recaptcha/',
+                        'https://www.gstatic.com/recaptcha/',
+                        #'https://www.google.com/recaptcha/api.js'
+                        ],
         'frame-src': "https://www.google.com/recaptcha/"
     },
     content_security_policy_nonce_in=['script-src']
