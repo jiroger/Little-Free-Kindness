@@ -10,8 +10,9 @@ app = Flask(__name__)
 talisman = Talisman(
     app,
     content_security_policy = {
-        'default-src': ['\'self\'', '*.bootstrapcdn.com'],
-        'script-src': ['\'self\'', 'https://www.google.com/recaptcha/', 'https://www.gstatic.com/recaptcha/'],
+        'default-src': ['\'self\'',],
+        'style-src': ['*.bootstrapcdn.com'],
+        'script-src': ['\'self\'', 'https://www.google.com/recaptcha/', 'https://www.gstatic.com/recaptcha/', '*.bootstrapcdn.com', 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js', 'https://code.jquery.com/jquery-3.3.1.slim.min.js'],
         'frame-src': "https://www.google.com/recaptcha/"
     },
     content_security_policy_nonce_in=['script-src']
@@ -27,7 +28,6 @@ from models import Note
 
 @app.route('/', methods = ["GET", "POST"])
 def hello():
-
     form = InputForm()
     if form.validate_on_submit():
         message = request.form["message"]
