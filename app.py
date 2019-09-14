@@ -11,7 +11,7 @@ talisman = Talisman(
     app,
     content_security_policy = {
         'default-src': ['\'self\'',],
-        'style-src': ['*.bootstrapcdn.com'],
+        'style-src': ['\'self\'', '*.bootstrapcdn.com'],
         'script-src': ['\'self\'', 'https://www.google.com/recaptcha/', 'https://www.gstatic.com/recaptcha/', '*.bootstrapcdn.com', 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js', 'https://code.jquery.com/jquery-3.3.1.slim.min.js'],
         'frame-src': "https://www.google.com/recaptcha/"
     },
