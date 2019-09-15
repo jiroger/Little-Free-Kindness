@@ -71,6 +71,9 @@ def toJSON(obj):
                     lookupId = obj.lookupId,
                     numLikes = obj.numLikes,
                     numDislikes = obj.numDislikes).get_json()
-
+@app.errorhandler(404)
+def page_not_found(error):
+    return render_template('404.html'), 404
+    
 if __name__ == '__main__': #only runs if you actually call app.py (if importing app.py to another file and run, __name__ != '__main__')
     app.run()

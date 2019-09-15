@@ -1,32 +1,29 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-  <title>Notez</title>
-</head>
-
-<body>
-  <div>
-    <h1>Yay</h1>
-    {{ notez.name }}
-    {{ notez.message }}
-    {{ notez.id}}
-    {{ notez.lookupId}}
-    {{ notez.numViews}}
-    {{notez.numLikes}}
-    {{notez.numDislikes}}
-    </form>
-    <br>
-  </div>
-  <form method="POST" action=" {{url_for('smile')}} ">
-    {{ form.like.label }}
-    {{ form.like }}
-
-    {{form.dislike.label}}
-    {{form.dislike}}
-
-    {{form.csrf_token}}
+{% extends "base.html" %}
+{% block title %} Wordcount hehe {% endblock %}
+{% block head %} {{ super() }} {% endblock %}
+{% block content %}
+{{ super() }}
+<div class="container-fluid">
+  <h1>Yay</h1>
+  {{ notez.name }}
+  {{ notez.message }}
+  {{ notez.id}}
+  {{ notez.lookupId}}
+  {{ notez.numViews}}
+  {{notez.numLikes}}
+  {{notez.numDislikes}}
   </form>
-</body>
+  <br>
+</div>
+<form method="POST" action=" {{url_for('smile')}} ">
+  {{ form.like.label }}
+  {{ form.like }}
 
-</html>
+  {{form.dislike.label}}
+  {{form.dislike}}
+
+  {{form.csrf_token}}
+</form>
+{% endblock %}
+{% block scripts %} {{ super() }}
+{% endblock %}

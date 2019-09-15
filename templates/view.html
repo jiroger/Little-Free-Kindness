@@ -1,24 +1,21 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
+{% block title %} View Your Note {% endblock %}
+{% block head %} {{ super() }} {% endblock %}
+{% block content %}
+{{ super() }}
 
-<head>
-  <title>Wordcount</title>
+<div class="container-fluid">
+  <h1>look at ur post stupid</h1>
+  <form method='POST' action=" {{ url_for('view') }}">
+    {{ form.id.label}}
+    {{ form.id}}
+    dk
+    {{ form.submit }}
 
-</head>
-
-<body>
-  <div>
-    <h1>look at ur post stupid</h1>
-    <form method='POST' action=" {{ url_for('view') }}">
-      {{ form.id.label}}
-      {{ form.id}}
-      dk
-      {{ form.submit }}
-
-      {{ form.csrf_token }}
-    </form>
-    <br>
-  </div>
-</body>
-
-</html>
+    {{ form.csrf_token }}
+  </form>
+  <br>
+</div>
+{% endblock %}
+{% block scripts %} {{ super() }}
+{% endblock %}
