@@ -55,5 +55,9 @@ class Note(db.Model):
         else:
             return "couldnt find"
 
+    @staticmethod
+    def getTopRanks():
+        return;
+
     def __repr__(self): #repr returns the object
         return "<Message: {} & Name: {} & id: {} & numLikes: {} & numDislikes: {} & numViews: {}>".format(self.message, self.name, self.id, self.numLikes, self.numDislikes, self.numViews)
