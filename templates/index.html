@@ -3,33 +3,45 @@
 {% block head %} {{ super() }} {% endblock %}
 {% block content %}
 {{ super() }}
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-lg-12">
-        <h1> LFK 9000 </h1>
-        <form method='POST' action=" {{ url_for('hello') }}">
-          <div class="form-group">
-            {{ form.name.label}}
-            <br>
-            {{ form.name(aria_describedby="nameHelp", placeholder="Name (optional)", class="form_control")}}
-          </div>
-          <div class="form-group">
-            {{ form.message.label }}
-            <br>
-            {{ form.message(aria_describedby="messageHelp", placeholder="Please write something nice!", class="form_control")}}
-          </div>
-          <div class="form-group">
-            {{ form.submit(class="btn btn-primary")}}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-2">
+    </div>
+    <div class="col-lg-8" align="center">
+      <br>
+      <h1> Little Free Kindness </h1>
+      <p>
+        <i>Leave a kind note, take a kind note!</i>
+      </p>
+      <p> Be a positive influence on someone's life by entering a kind message. It doesn't have to be anything fancy; even something
+        as simple as "Have a nice day"
+      </p>
+      <hr>
+      <form method='POST' action=" {{ url_for('hello') }}">
+        <div class="form-group">
+          {{ form.name.label}}
+          <br>
+          {{ form.name(aria_describedby="nameHelp", placeholder="Name (optional)", class="form_control")}}
+        </div>
+        <div class="form-group">
+          {{ form.message.label }}
+          <br>
+          {{ form.message(aria_describedby="messageHelp", placeholder="Please write something nice!", class="form_control")}}
+        </div>
+        <div class="form-group">
+          {{ form.submit(class="btn btn-primary")}}
 
-            {{ form.csrf_token }}
-            <br><br>
-            {{ form.recaptcha }}
-          </div>
-        </form>
-        <br>
-      </div>
+          {{ form.csrf_token }}
+          <br><br>
+          {{ form.recaptcha }}
+        </div>
+      </form>
+      <br>
+    </div>
+    <div class="col-lg-3">
     </div>
   </div>
+</div>
 {% endblock %}
 {% block scripts %} {{ super() }}
 {% endblock %}

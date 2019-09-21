@@ -10,7 +10,10 @@
   <form method='POST' action=" {{ url_for('view') }}">
     {{ form.id.label}}
     {{ form.id}}
-    dk
+    
+    {% for error in form.id.errors %}
+    <span style="color: red;">[{{ error }}]</span>
+    {% endfor %}
     {{ form.submit }}
 
     {{ form.csrf_token }}
