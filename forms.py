@@ -9,7 +9,7 @@ class InputForm(FlaskForm):
     submit = SubmitField("Send")
 
 class ViewForm(FlaskForm):
-    id = TextField("Please enter your post's ID to view its statistics", validators=[DataRequired(), UUID(message="Not a valid UUID!")])
+    id = TextField("Please enter your post's ID to view its statistics", validators=[DataRequired(), UUID("Not a valid UUID!")])
     submit = SubmitField("Lezgo!")
 
 class VoteForm(FlaskForm):

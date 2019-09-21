@@ -34,21 +34,18 @@ def hello():
         name = request.form["name"]
         note = Note(message=message, name=name)
         note.add()
-        return redirect(url_for("success", message=message, name=name, lookupId = note.lookupId))
+        #return redirect(url_for("success", message=message, name=name, lookupId = note.lookupId))
+        return render_template("success.html", message=message, name=name, lookupId = note.lookupId)
     return render_template("index.html", form=form)
-
-@app.route('/success')
-def success():
-    return render_template("success.html", message=request.args.get("message"), name=request.args.get("name"), lookupId = request.args.get("lookupId"))
 
 @app.route('/view', methods = ["GET", "POST"])
 def view():
     form = ViewForm()
     if form.validate_on_submit():
-        return Note.viewNote(request.form["id"])
+        return render_template("statistics.html", info=Note.viewNote(request.form["id"]))
     return render_template("view.html", form=form)
 
-@app.route('/notez', methods=['GET', 'POST'])
+@app.route('/smile', methods=['GET', 'POST'])
 def smile():
     form = VoteForm()
     if "randomNote" not in session:
@@ -60,8 +57,12 @@ def smile():
         elif form.dislike.data:
             tempNote.update({"numDislikes": tempNote.numDislikes + 1})
         session.clear()
-        return redirect('/notez')
-    return render_template("notez.html", notez = Note.returnNote(session["randomNote"]["lookupId"]), form=form)
+        return redirect('/smile')
+    return render_template("smile.html", notez = Note.returnNote(session["randomNote"]["lookupId"]), form=form)
+
+@app.route('/rankings', methods=['GET'])
+def rankings():
+    return render_template("rankings.html", rankings=Note.getTopRanks())
 
 def toJSON(obj):
     return jsonify(message = obj.message,
@@ -71,9 +72,10 @@ def toJSON(obj):
                     lookupId = obj.lookupId,
                     numLikes = obj.numLikes,
                     numDislikes = obj.numDislikes).get_json()
+
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template('404.html'), 404
-    
+
 if __name__ == '__main__': #only runs if you actually call app.py (if importing app.py to another file and run, __name__ != '__main__')
     app.run()

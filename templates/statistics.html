@@ -1,22 +1,16 @@
 {% extends "base.html" %}
-{% block title %} View Your Note {% endblock %}
+{% block title %} Wordcount hehe {% endblock %}
 {% block head %} {{ super() }} {% endblock %}
 {% block content %}
 {{ super() }}
-
 <div class="container-fluid">
-  <h1>look at ur post stupid</h1>
+  <h1>Here are your stats</h1>
+  <form>
   {{ info }}
-  <form method='POST' action=" {{ url_for('view') }}">
-    {{ form.id.label}}
-    {{ form.id}}
-    dk
-    {{ form.submit }}
-
-    {{ form.csrf_token }}
   </form>
   <br>
 </div>
+
 {% endblock %}
 {% block scripts %} {{ super() }}
 {% endblock %}

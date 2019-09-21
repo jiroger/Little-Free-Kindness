@@ -43,17 +43,25 @@ class Note(db.Model):
 
     @staticmethod
     def viewNote(inputUUID):
+        """
+        Returns
+            String : information about the note
+        """
         if Note.query.filter_by(lookupId = inputUUID).first() is not None:
             return (Note.query.filter_by(lookupId = inputUUID).first().message + ", it has been viewed "  + str(Note.query.filter_by(lookupId = inputUUID).first().numViews))
         else:
-            return "wrong input"
+            return "Could not find the Note statistics"
 
     @staticmethod
     def returnNote(inputUUID):
+        """
+        Returns
+            Note : the Note object
+        """
         if Note.query.filter_by(lookupId = inputUUID).first() is not None:
             return Note.query.filter_by(lookupId = inputUUID).first()
         else:
-            return "couldnt find"
+            return "Could not find the Note"
 
     @staticmethod
     def getTopRanks():
