@@ -5,20 +5,72 @@
 {{ super() }}
 
 <div class="container-fluid">
-  <h1>look at ur post stupid</h1>
-  {{ info }}
-  <form method='POST' action=" {{ url_for('view') }}">
-    {{ form.id.label}}
-    {{ form.id}}
+  <div class="row">
+    <div class="col-lg-6" align="center">
+      <br><br>
+      <h1>Check Your Post Statistics</h1>
+      <p>
+        <i> Curious about how many views and likes your note has received? </i>
+      </p>
+      <p>
+        {{ info }}
+      </p>
+      <form method='POST' action=" {{ url_for('view') }}">
+        {{ form.id.label}}
+        <br>
+        {{ form.id}}
+        <br><br>
+        {% for error in form.id.errors %}
+        <span class="error">[{{ error }}]</span>
+        <br><br>
+        {% endfor %}
+        {{ form.recaptcha }}
+        <br>
+        {{ form.submit(class="btn btn-primary")}}
 
-    {% for error in form.id.errors %}
-    <span class="error">[{{ error }}]</span>
-    {% endfor %}
-    {{ form.submit }}
-
-    {{ form.csrf_token }}
-  </form>
-  <br>
+        {{ form.csrf_token }}
+      </form>
+      <br>
+    </div>
+    <div class="col-lg-6" align="center">
+      <!--  will implement functions to query entire database -->
+      <br><br>
+      <h1> Check Overall Statistics </h1>
+      <p>
+        <i> Because who doesn't like big data? </i>
+      </p>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Handle</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>Larry</td>
+            <td>the Bird</td>
+            <td>@twitter</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
 {% endblock %}
 {% block scripts %} {{ super() }}

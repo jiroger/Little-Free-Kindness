@@ -5,15 +5,21 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="{{url_for('view')}}">View</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{url_for('smile')}}">Smile</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{url_for('rankings')}}">Rankings</a>
-      </li>
+      <a class="nav-link" href="{{url_for('view')}}">
+        <li class="nav-item">
+          View
+        </li>
+      </a>
+      <a class="nav-link" href="{{url_for('rankings')}}">
+        <li class="nav-item">
+          Rankings
+        </li>
+      </a>
+      <a class="nav-link" href="{{url_for('smile')}}">
+        <li class="nav-item">
+          Smile
+        </li>
+      </a>
     </ul>
   </div>
 </nav>

@@ -13,8 +13,12 @@
       <p>
         <i>Leave a kind note, take a kind note!</i>
       </p>
-      <p> Be a positive influence on someone's life by entering a kind message. It doesn't have to be anything fancy; even something
-        as simple as "Have a nice day!" is enough to change someone's life for the better. So whatcha waiting for? Go write a nice note and make the world a (slightly) better place!
+      <p> Be a positive influence on a random people's lives by writing them a kind message. It doesn't have to be anything fancy; even something
+        as simple as "Have a nice day!" is enough to change someone's life for the better. So whatcha waiting for? Go compose a nice note and make the world a (slightly) better place!
+      </p>
+      <hr>
+      <p>
+        This idea behind this project was inspired by <a href="https://littlefreelibrary.org/">Little Free Library</a>. Please pay them a visit when you have time!
       </p>
       <hr>
       <form method='POST' action=" {{ url_for('hello') }}">
@@ -29,17 +33,16 @@
           {{ form.message(aria_describedby="messageHelp", placeholder="Please write something nice!", class="form_control")}}
         </div>
         <div class="form-group">
-          {{ form.submit(class="btn btn-primary")}}
-
           {{ form.csrf_token }}
-          <br><br>
+          <br>
           {{ form.recaptcha }}
+          <br>
+          {{ form.submit(class="btn btn-primary")}}
         </div>
       </form>
       <br>
     </div>
-    <div class="col-lg-2">
-    </div>
+
   </div>
 </div>
 {% endblock %}
