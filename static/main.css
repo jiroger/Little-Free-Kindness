@@ -42,6 +42,10 @@ hr {
   color: white;
   background-color: rgba(0,0,0,0.5)
 }
+
+.footer {
+  background-color: rgba(0,0,0,0.1);
+}
 @media (max-width: 768px) {
   .nav-item {
     padding: 0px !important;
