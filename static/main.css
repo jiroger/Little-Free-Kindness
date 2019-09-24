@@ -21,4 +21,24 @@ textarea[name=message] {
 hr {
   margin-top: 30px;
   margin-bottom: 30px;
+  border: 1px dashed black;
+}
+
+.nav-item {
+  padding: 10px 20px 10px 20px;
+  margin: -10px 0px -10px 0px;
+  text-align: center;
+}
+
+.nav-item:hover {
+  transition: 0.5s ease;
+  color: white;
+  background-color: rgba(0,0,0,0.5)
+}
+
+@media (max-width: 768px) {
+  .nav-item {
+    padding: 0px !important;
+    margin: 0px !important;
+  }
 }
