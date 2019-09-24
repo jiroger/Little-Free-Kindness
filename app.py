@@ -48,7 +48,7 @@ def view():
 @app.route('/smile', methods=['GET', 'POST'])
 def smile():
     form = VoteForm()
-    if "randomNote" not in session:
+    if "randomNote" not in session: #this is temporary; once site gets up and going, will find better way to counter botting
         session["randomNote"] = toJSON(Note.getRandomNote())
     if form.validate_on_submit():
         tempNote = Note.returnNote(session["randomNote"]["lookupId"])

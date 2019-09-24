@@ -34,6 +34,8 @@ class Note(db.Model):
             setattr(self, attribute, value)
         db.session.commit()
 
+    #note to self; need to implement method that makes sure that the note getrandomnote retrives
+    #passes a certain upvote threshold so mean notes are hidden
     @staticmethod
     def getRandomNote():
         idNum = randint(1, Note.query.count() - 1) if Note.query.count() > 1 else Note.query.count()

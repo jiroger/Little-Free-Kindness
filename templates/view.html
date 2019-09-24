@@ -10,9 +10,9 @@
   <form method='POST' action=" {{ url_for('view') }}">
     {{ form.id.label}}
     {{ form.id}}
-    
+
     {% for error in form.id.errors %}
-    <span style="color: red;">[{{ error }}]</span>
+    <span class="error">[{{ error }}]</span>
     {% endfor %}
     {{ form.submit }}
 
