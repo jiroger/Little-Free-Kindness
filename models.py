@@ -35,6 +35,9 @@ class Note(db.Model):
             setattr(self, attribute, value)
         db.session.commit()
 
+    def getStringTime(self):
+        return self.createdAt.strftime("%B %d, %Y")
+
     #note to self; need to implement method that makes sure that the note getrandomnote retrives
     #passes a certain upvote threshold so mean notes are hidden
     @staticmethod
@@ -56,7 +59,7 @@ class Note(db.Model):
             return "Could not find the Note statistics"
 
     @staticmethod
-    def returnNote(inputUUID):
+    def getNote(inputUUID):
         """
         Returns
             Note : the Note object
@@ -67,8 +70,41 @@ class Note(db.Model):
             return "Could not find the Note"
 
     @staticmethod
-    def getTopRanks():
-        return Note.query.order_by(desc(Note.numLikes)).limit(5).all()
+    def getTopRanks(pref):
+        """
+        Returns
+            Note : the 5 most liked or disliked notes
+        """
+        try:
+            if pref == "likes":
+                return Note.query.order_by(desc(Note.numLikes)).limit(5).all()
+            else:
+                return Note.query.order_by(desc(Note.numDislikes)).first_or_404(description='There is no data with numDislikes')
+        except:
+            try:
+                if pref == "likes":
+                    return Note.query.order_by(desc(Note.numLikes)).all()
+                else:
+                    return Note.query.order_by(desc(Note.numDislikes)).first_or_404(description='There is no data with numDislikes')
+            except:
+                return "No notes available!"
+
+    @staticmethod
+    def getAllNotes():
+        return Note.query.all()
+
+    @staticmethod
+    def getTotal(pref="total"):
+        notes = Note.getAllNotes()
+        count = 0
+        for note in notes:
+            if pref == "likes":
+                count += note.numLikes
+            elif pref == "dislikes":
+                count += note.numDislikes
+            else:
+                count += note.numViews
+        return count
 
     def __repr__(self): #repr returns the object
         return "<Message: {} & Name: {} & id: {} & numLikes: {} & numDislikes: {} & numViews: {}>".format(self.message, self.name, self.id, self.numLikes, self.numDislikes, self.numViews)

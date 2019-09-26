@@ -44,27 +44,27 @@
         <tbody>
           <tr>
             <th scope="row">Total Number of Posts</th>
-            <td>Mark</td>
+            <td>{{ numPosts | length}}</td>
           </tr>
           <tr>
             <th scope="row">Total Number of Post Views</th>
-            <td>Mark</td>
+            <td> {{ totalNumViews }}</td>
           </tr>
           <tr>
             <th scope="row">Total Number of Likes</th>
-            <td>Jacob</td>
+            <td>{{ totalNumLikes }}</td>
           </tr>
           <tr>
             <th scope="row">Total Number of Dislikes</th>
-            <td>Larry</td>
+            <td> {{ totalNumDislikes }}</td>
           </tr>
           <tr>
             <th scope="row">Most Likes on a Post</th>
-            <td>Larry</td>
+            <td> {{ mostLiked }} </td>
           </tr>
           <tr>
             <th scope="row">Most Dislikes on a Post</th>
-            <td>Larry</td>
+            <td> {{ mostDisliked }} </td>
           </tr>
         </tbody>
       </table>

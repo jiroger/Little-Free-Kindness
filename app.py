@@ -43,7 +43,7 @@ def view():
     form = ViewForm()
     if form.validate_on_submit():
         return render_template("statistics.html", info=Note.viewNote(request.form["id"]))
-    return render_template("view.html", form=form)
+    return render_template("view.html", form=form, numPosts=Note.getAllNotes(), totalNumLikes = Note.getTotal("likes"), totalNumDislikes = Note.getTotal("dislikes"), totalNumViews = Note.getTotal(), mostLiked = Note.getTopRanks("likes")[0].numLikes, mostDisliked = Note.getTopRanks("dislikes").numDislikes)
 
 @app.route('/smile', methods=['GET', 'POST'])
 def smile():
@@ -51,18 +51,18 @@ def smile():
     if "randomNote" not in session: #this is temporary; once site gets up and going, will find better way to counter botting
         session["randomNote"] = toJSON(Note.getRandomNote())
     if form.validate_on_submit():
-        tempNote = Note.returnNote(session["randomNote"]["lookupId"])
+        tempNote = Note.getNote(session["randomNote"]["lookupId"])
         if form.like.data:
             tempNote.update({"numLikes": tempNote.numLikes + 1})
         elif form.dislike.data:
             tempNote.update({"numDislikes": tempNote.numDislikes + 1})
         session.clear()
         return redirect('/smile')
-    return render_template("smile.html", notez = Note.returnNote(session["randomNote"]["lookupId"]), form=form)
+    return render_template("smile.html", notez = Note.getNote(session["randomNote"]["lookupId"]), form=form)
 
 @app.route('/rankings', methods=['GET'])
 def rankings():
-    return render_template("rankings.html", rankings=Note.getTopRanks())
+    return render_template("rankings.html", notes=Note.getTopRanks("likes"))
 
 def toJSON(obj):
     return jsonify(message = obj.message,
