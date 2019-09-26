@@ -8,6 +8,12 @@
   <div class="row">
     <div class="col-lg-12">
       Rankings!
+      <br>
+      {% for note in rankings %}
+      {{ note.numLikes }}
+      {{ note.name }}
+      <br>
+      {% endfor %}
     </div>
   </div>
 </div>

@@ -3,6 +3,7 @@ import datetime
 from random import randint
 import uuid
 from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy import func, desc
 
 class Note(db.Model):
     __tablename__ = "notes"
@@ -67,7 +68,7 @@ class Note(db.Model):
 
     @staticmethod
     def getTopRanks():
-        return;
+        return Note.query.order_by(desc(Note.numLikes)).limit(5).all()
 
     def __repr__(self): #repr returns the object
         return "<Message: {} & Name: {} & id: {} & numLikes: {} & numDislikes: {} & numViews: {}>".format(self.message, self.name, self.id, self.numLikes, self.numDislikes, self.numViews)
