@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %} Wordcount hehe {% endblock %}
+{% block title %} Little Free Kindness {% endblock %}
 {% block head %} {{ super() }} {% endblock %}
 {% block content %}
 {{ super() }}
@@ -15,6 +15,7 @@
       </p>
       <p> Be a positive influence on a random people's lives by writing them a kind message. It doesn't have to be anything fancy; even something
         as simple as "Have a nice day!" is enough to change someone's life for the better. So whatcha waiting for? Go compose a nice note and make the world a (slightly) better place!
+        <a href="{{ url_for('about')}}">Click here</a> to learn more about this project.
       </p>
       <hr>
       <p>

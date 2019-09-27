@@ -3,7 +3,7 @@ from config import Config
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_talisman import Talisman
-from forms import InputForm, ViewForm, VoteForm
+from forms import InputForm, ViewForm, VoteForm, ReportForm
 
 app = Flask(__name__)
 
@@ -66,8 +66,16 @@ def rankings():
 
 @app.route('/report', methods=['GET', 'POST'])
 def report():
-    return;
-    
+    form = ReportForm()
+    if form.validate_on_submit():
+        #need to find some way to port report data over to database
+        return render_template("report.html")
+    return render_template("report.html", form=form)
+
+@app.route('/about', methods=['GET'])
+def about():
+    return render_template("about.html")
+
 def toJSON(obj):
     return jsonify(message = obj.message,
                     name = obj.name,

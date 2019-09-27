@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %} Report {% endblock %}
+{% block head %} {{ super() }} {% endblock %}
+{% block content %}
+{{ super() }}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-2">
+    </div>
+    <div class="col-lg-8" align="center">
+      <br><br>
+      <h1> Report </h1>
+      <p>
+        <i></i>
+      </p>
+      <form method='POST' action=" {{ url_for('hello') }}">
+
+        <div class="form-group">
+          {{ form.comments(aria_describedby="commentHelp", placeholder="Additional comments", class="form_control")}}
+
+          <br>
+          {{ form.csrf_token }}
+          <br>
+          {{ form.recaptcha }}
+          <br>
+          {{ form.submit(class="btn btn-outline-primary btn-lg")}}
+        </div>
+      </form>
+      <br><br><br>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
+{% block scripts %} {{ super() }}
+{% endblock %}

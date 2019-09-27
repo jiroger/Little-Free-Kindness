@@ -16,3 +16,8 @@ class ViewForm(FlaskForm):
 class VoteForm(FlaskForm):
     like = SubmitField("Like")
     dislike = SubmitField("Dislike")
+
+class ReportForm(FlaskForm):
+    comments = TextAreaField("Additional comments (optional)")
+    submit = SubmitField("Report")
+    recaptcha = RecaptchaField()
