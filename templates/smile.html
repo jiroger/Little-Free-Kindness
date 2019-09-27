@@ -4,27 +4,44 @@
 {% block content %}
 {{ super() }}
 <div class="container-fluid">
-  <h1>Yay</h1>
-  <form>
-    {{ notez.name }}
-    {{ notez.message }}
-    {{ notez.id}}
-    {{ notez.lookupId}}
-    {{ notez.numViews}}
-    {{notez.numLikes}}
-    {{notez.numDislikes}}
-  </form>
-  <br>
+  <div class="row">
+    <div class="col-lg-2">
+    </div>
+    <div class="col-lg-8" align="center">
+      <br><br>
+      <h1>A Nice Note</h1>
+      <p>
+        <i> Smile -- it's good for you! :)</i>
+      </p>
+
+      <kbd>{{ notez.name }}</kbd> wrote to you:
+      <br><br>
+      <blockquote class="blockquote">
+        "{{ notez.message }}"
+      </blockquote>
+      <br>
+      <p>
+        This note has <kbd>{{ notez.numLikes}}</kbd> likes and <kbd>{{ notez.numDislikes }}</kbd> dislikes.
+        A total of <kbd>{{ notez.numViews }}</kbd> people have seen it.
+      </p>
+      <br>
+      <form method="POST" action=" {{url_for('smile')}} ">
+        <div class="btn-group" role="group" aria-label="Like or dislike">
+        {{ form.like(class="btn btn-outline-success btn-lg")}}
+
+        {{ form.dislike(class="btn btn-outline-danger btn-lg")}}
+        </div>
+        {{ form.csrf_token}}
+        <br><br>
+        <small id="emailHelp" class="form-text text-muted">Seeing something mean? <a href="{{ url_for('report') }}"> Report this post</a>.</small>
+
+      </form>
+    </div>
+    <div class="col-lg-2">
+    </div>
+
+  </div>
 </div>
-<form method="POST" action=" {{url_for('smile')}} ">
-  {{ form.like.label }}
-  {{ form.like }}
-
-  {{form.dislike.label}}
-  {{form.dislike}}
-
-  {{form.csrf_token}}
-</form>
 {% endblock %}
 {% block scripts %} {{ super() }}
 {% endblock %}

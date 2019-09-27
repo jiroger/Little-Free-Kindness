@@ -64,6 +64,10 @@ def smile():
 def rankings():
     return render_template("rankings.html", notes=Note.getTopRanks("likes"))
 
+@app.route('/report', methods=['GET', 'POST'])
+def report():
+    return;
+    
 def toJSON(obj):
     return jsonify(message = obj.message,
                     name = obj.name,
