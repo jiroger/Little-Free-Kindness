@@ -11,17 +11,23 @@
       <br><br>
       <h1> Report </h1>
       <p>
-        <i></i>
+        <i>Please note that your IP address (<span id="ip"></span>) will be recorded to prevent abuse.</i>
       </p>
-      <form method='POST' action=" {{ url_for('hello') }}">
+        You are reporting <kbd>{{ note.name }}</kbd> for writing:
+      <br><br>
+      <blockquote class="blockquote">
+        "{{ note.message }}"
+      </blockquote>
+      <form method='POST' action=" {{ url_for('report') }}">
 
         <div class="form-group">
+          {{ form.ip(value="ok", readonly="readonly") }}
           {{ form.comments(aria_describedby="commentHelp", placeholder="Additional comments", class="form_control")}}
 
           <br>
           {{ form.csrf_token }}
           <br>
-          {{ form.recaptcha }}
+          <!-- {{ form.recaptcha }} -->
           <br>
           {{ form.submit(class="btn btn-outline-primary btn-lg")}}
         </div>

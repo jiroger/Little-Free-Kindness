@@ -12,7 +12,7 @@ talisman = Talisman(
     content_security_policy = {
         'default-src': ['\'self\'',],
         'style-src': ['\'self\'', '*.bootstrapcdn.com'],
-        'script-src': ['\'self\'', 'https://www.google.com/recaptcha/', 'https://www.gstatic.com/recaptcha/', '*.bootstrapcdn.com', 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js', 'https://code.jquery.com/jquery-3.3.1.slim.min.js'],
+        'script-src': ['\'self\'', 'https://www.google.com/recaptcha/', 'https://www.gstatic.com/recaptcha/', '*.bootstrapcdn.com', 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js', 'https://code.jquery.com/jquery-3.3.1.min.js', 'http://www.geoplugin.net/'],
         'frame-src': "https://www.google.com/recaptcha/",
     },
     content_security_policy_nonce_in=['script-src', 'style-src']
@@ -67,10 +67,23 @@ def rankings():
 @app.route('/report', methods=['GET', 'POST'])
 def report():
     form = ReportForm()
+    if request.method == 'POST':
+        ip = request.get_json()
+        print(ip)
+
     if form.validate_on_submit():
         #need to find some way to port report data over to database
-        return render_template("report.html")
-    return render_template("report.html", form=form)
+        id = Note.getNote(session["randomNote"]["lookupId"]).lookupId
+        print(id)
+        comments = request.form["comments"]
+        print(comments)
+
+        session.clear()
+        return render_template("success.html")
+    try:
+        return render_template("report.html", form=form, note=Note.getNote(session["randomNote"]["lookupId"]))
+    except:
+        return render_template("error/403.html"), 403
 
 @app.route('/about', methods=['GET'])
 def about():
@@ -87,7 +100,11 @@ def toJSON(obj):
 
 @app.errorhandler(404)
 def page_not_found(error):
-    return render_template('404.html'), 404
+    return render_template('error/404.html'), 404
+
+@app.errorhandler(403)
+def access_forbidden(error):
+    return render_template('error/403.html')
 
 if __name__ == '__main__': #only runs if you actually call app.py (if importing app.py to another file and run, __name__ != '__main__')
     app.run()
