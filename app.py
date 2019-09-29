@@ -53,6 +53,9 @@ def smile():
     form = VoteForm()
     if "randomNote" not in session: #this is temporary; once site gets up and going, will find better way to counter botting
         session["randomNote"] = toJSON(Note.getRandomNote())
+        print("this is supposed to happen")
+        print(session["randomNote"])
+    print(session["randomNote"])
     if form.validate_on_submit():
         tempNote = Note.getNote(session["randomNote"]["lookupId"])
         if form.like.data:
