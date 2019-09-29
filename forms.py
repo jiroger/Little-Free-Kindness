@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm, RecaptchaField
-from wtforms import TextField, TextAreaField, SubmitField, HiddenField
+from wtforms import TextField, TextAreaField, SubmitField
 from wtforms.validators import *
 
 class InputForm(FlaskForm):
@@ -18,7 +18,6 @@ class VoteForm(FlaskForm):
     dislike = SubmitField("Dislike")
 
 class ReportForm(FlaskForm):
-    ip = HiddenField()
-    comments = TextAreaField("Additional comments (optional)")
+    comments = TextAreaField("Additional comments (optional)", validators=[DataRequired()])
     submit = SubmitField("Report")
     #recaptcha = RecaptchaField()

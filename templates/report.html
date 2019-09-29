@@ -21,9 +21,7 @@
       <form method='POST' action=" {{ url_for('report') }}">
 
         <div class="form-group">
-          {{ form.ip(value="ok", readonly="readonly") }}
-          {{ form.comments(aria_describedby="commentHelp", placeholder="Additional comments", class="form_control")}}
-
+          {{ form.comments(aria_describedby="commentHelp", placeholder="Additional comments (optional)", class="form_control")}}
           <br>
           {{ form.csrf_token }}
           <br>

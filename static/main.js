@@ -13,15 +13,18 @@ $(document).ready(function() {
 if ($("#ip").length > 0) {
   $.getJSON('http://www.geoplugin.net/json.gp?jsoncallback=?', function(data) {
     $("#ip").html(data["geoplugin_request"]);
-    $("#submit").click(function (e) {
-      e.preventDefault();
-      $.ajax({
-        type : "POST",
-        url : "report",
-        data: JSON.stringify({ "ip" : data["geoplugin_request"] } ),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json"
-      });
+    sessionStorage.setItem("ip", data["geoplugin_request"])
+  });
+
+  $("#submit").click(function (e) {
+    e.preventDefault();
+    $.ajax({
+      type : "POST",
+      url : "report",
+      data: JSON.stringify({ "ip" : sessionStorage.getItem("ip")} ),
+      contentType: "application/json; charset=utf-8",
+      dataType: "json"
     });
+    sessionStorage.clear();
   });
 };

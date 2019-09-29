@@ -3,7 +3,9 @@ from config import Config
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_talisman import Talisman
+from flask_mail import Mail, Message
 from forms import InputForm, ViewForm, VoteForm, ReportForm
+import json
 
 app = Flask(__name__)
 
@@ -23,6 +25,7 @@ app.config.from_object(os.environ['APP_SETTINGS']) #changes when environment cha
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app) #initalizes a connection to the db
+mail = Mail(app)
 
 from models import Note
 
@@ -67,18 +70,16 @@ def rankings():
 @app.route('/report', methods=['GET', 'POST'])
 def report():
     form = ReportForm()
+    print(form.errors)
     if request.method == 'POST':
-        ip = request.get_json()
-        print(ip)
-
-    if form.validate_on_submit():
-        #need to find some way to port report data over to database
+        ip = request.get_json()["ip"]
         id = Note.getNote(session["randomNote"]["lookupId"]).lookupId
-        print(id)
-        comments = request.form["comments"]
-        print(comments)
-
+        comments = ""
+        if request.form:
+            comments = request.form["comments"]
         session.clear()
+        msg = Message("Note UUID: " + id + "\n" + "Comments: " + comments + "\n" + "IP Address: " + ip, sender="gomeme.bob@gmail.com", recipients=["gomeme.bob@gmail.com"])
+        mail.send(msg)
         return render_template("success.html")
     try:
         return render_template("report.html", form=form, note=Note.getNote(session["randomNote"]["lookupId"]))
