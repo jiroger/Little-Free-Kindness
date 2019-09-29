@@ -73,7 +73,7 @@ def rankings():
 @app.route('/report', methods=['GET', 'POST'])
 def report():
     form = ReportForm()
-    print(form.errors)
+    print(request.environ['REMOTE_ADDR'])
     if request.method == 'POST':
         ip = request.get_json()["ip"]
         id = Note.getNote(session["randomNote"]["lookupId"]).lookupId
