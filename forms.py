@@ -20,4 +20,4 @@ class VoteForm(FlaskForm):
 class ReportForm(FlaskForm):
     comments = TextAreaField("Additional comments (optional)", validators=[DataRequired()])
     submit = SubmitField("Report")
-    #recaptcha = RecaptchaField()
+    recaptcha = RecaptchaField()
