@@ -73,19 +73,21 @@ def rankings():
 @app.route('/report', methods=['GET', 'POST'])
 def report():
     form = ReportForm()
-    print(request.environ.get('HTTP_X_REAL_IP', request.remote_addr))  
-    if request.method == 'POST':
-        ip = request.get_json()["ip"]
+    ip = request.environ.get('HTTP_X_REAL_IP', request.remote_addr)
+    #print(request.environ.get('HTTP_X_REAL_IP', request.remote_addr))
+    if form.validate_on_submit(): #form.method == 'POST'
+         #request.get_json()["ip"]
         id = Note.getNote(session["randomNote"]["lookupId"]).lookupId
         comments = ""
         if request.form:
             comments = request.form["comments"]
         session.clear()
-        msg = Message("Note UUID: " + id + "\n" + "Comments: " + comments + "\n" + "IP Address: " + ip, sender="gomeme.bob@gmail.com", recipients=["gomeme.bob@gmail.com"])
+        msg = Message("Someone reported a post!", sender="roger.ji.32021@gmail.com", recipients=["gomeme.bob@gmail.com"])
+        msg.body = "Note UUID: " + id + "\n" + "Comments: " + comments + "\n" + "IP Address: " + ip
         mail.send(msg)
         return render_template("success.html")
     try:
-        return render_template("report.html", form=form, note=Note.getNote(session["randomNote"]["lookupId"]))
+        return render_template("report.html", form=form, note=Note.getNote(session["randomNote"]["lookupId"]), ip=ip)
     except:
         return render_template("error/403.html"), 403
 

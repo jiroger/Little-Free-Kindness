@@ -10,6 +10,7 @@ $(document).ready(function() {
   }
 })
 
+/*
 if ($("#ip").length > 0) {
   $.getJSON('http://www.geoplugin.net/json.gp?jsoncallback=?', function(data) {
     $("#ip").html(data["geoplugin_request"]);
@@ -28,3 +29,4 @@ if ($("#ip").length > 0) {
     sessionStorage.clear();
   });
 };
+*/

@@ -9,6 +9,11 @@ class Config(object): #the default config which all the other configs will inher
     SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL'] #when cd'ing into lfk, .env activates & sets DATABASE_URL to postgres://....
     RECAPTCHA_PUBLIC_KEY = os.environ['RC_SITE_KEY']
     RECAPTCHA_PRIVATE_KEY = os.environ['RC_SECRET_KEY']
+    MAIL_SERVER = 'smtp.gmail.com'
+    MAIL_PORT = 465
+    MAIL_USE_SSL = True
+    MAIL_USERNAME = os.environ['MAIL_USERNAME']
+    MAIL_PASSWORD = os.environ['MAIL_PASSWORD']
 
 class ProductionConfig(Config): #lfk-pro
     DEBUG = False
@@ -16,7 +21,7 @@ class ProductionConfig(Config): #lfk-pro
 class StagingConfig(Config): #lfk-staging
     DEVELOPMENT = True
     DEBUG = True
-    
+
 #when u cd into lfk directory, autoenv invokes .env file, which sets the APP_SETTINGS environment variable = DevelopmentConfig
 class DevelopmentConfig(Config):
     DEVELOPMENT = True
