@@ -4,10 +4,19 @@
 {% block content %}
 {{ super() }}
 <div class="container-fluid">
-  <h1>Here are your stats</h1> <!-- This is for after submitting uuid to view the note -->
-  <form>
-  {{ info }}
-  </form>
+  <div class="row">
+    <div class="col-lg-12" align="center">
+      <br><br>
+      <h1>Your Statistics</h1> <!-- This is for after submitting uuid to view the note -->
+      <p>
+        <i>How big of an impact did you have?</i>
+      </p>
+      <form>
+        {{ info }}
+      </form>
+    </div>
+  </div>
+
   <br>
 </div>
 

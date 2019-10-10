@@ -7,6 +7,7 @@
   <div class="row">
     <div class="col-lg-2">
     </div>
+
     <div class="col-lg-8" align="center">
       <br><br>
       <h1> Little Free Kindness </h1>
@@ -26,24 +27,26 @@
         <div class="form-group">
           {{ form.name.label}}
           <br>
-          {{ form.name(aria_describedby="nameHelp", placeholder="Name (optional)", class="form_control")}}
+          {{ form.name(aria_describedby="nameHelp", placeholder="Name (optional)", class="form_control") }}
         </div>
         <div class="form-group">
           {{ form.message.label }}
           <br>
-          {{ form.message(aria_describedby="messageHelp", placeholder="Please write something nice!", class="form_control")}}
+          {{ form.message(aria_describedby="messageHelp", placeholder="Please write something nice!", class="form_control") }}
         </div>
         <div class="form-group">
           {{ form.csrf_token }}
           <br>
           {{ form.recaptcha }}
           <br>
-          {{ form.submit(class="btn btn-outline-primary btn-lg")}}
+          {{ form.submit(class="btn btn-outline-primary btn-lg") }}
         </div>
       </form>
       <br><br><br>
     </div>
 
+    <div class="col-lg-2">
+    </div>
   </div>
 </div>
 {% endblock %}

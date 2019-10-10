@@ -1,4 +1,6 @@
-
+html {
+  overflow-x: hidden;
+}
 .row {
   width: 100vw;
 }
@@ -41,14 +43,14 @@ hr {
 .nav-item:hover {
   transition: 0.5s ease;
   color: white;
-  background-color: rgba(0,0,0,0.5)
+  background-color: rgba(0,0,0,0.5);
 }
 
 .footer {
   background-color: rgba(0,0,0,0.1);
   position: fixed;
   bottom: 0;
-  width: 100%;
+  width: 100vw;
 }
 
 @media (max-width: 768px) {

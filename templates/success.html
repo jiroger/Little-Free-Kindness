@@ -4,16 +4,37 @@
 {% block content %}
 {{ super() }}
 <div class="container-fluid">
-  <h1>Yay</h1>
-  {{ name }} wrote:
-  <br>
-  {{ message }}
-  {{ lookupId }}
+  <div class="row">
+    <div class="col-lg-2">
+    </div>
+    <div class="col-lg-8" align="center">
+      <br><br>
+      <h1>Thank You!</h1>
+      <p>
+        <i>Making the world a better place, one note at a time.</i>
+      </p>
+      You wrote:
 
-  <br>
+      <br><br>
+      <blockquote class="blockquote">
+        "{{ message }}"
+      </blockquote>
+      <br>
+      <p> This post's UUID (universally unique idenitifer) is
+        <kbd>{{ lookupId }}</kbd>. Please jot this down, as you will need it to access your note's statistics, if you so choose.
+      </p>
+      <br>
+      <div class="btn-group" role="group" aria-label="Submit another note, view note, or smile">
 
-  <a href="{{ url_for('view') }}">view</a>
-  <a href="{{ url_for('smile') }}">notez</a>
+        <a class="btn btn-outline-primary btn-lg" href="{{ url_for('hello') }}">Submit Another Note</a>
+        <a class="btn btn-outline-primary btn-lg" value="Smile" href="{{ url_for('smile') }}">Smile</a>
+        <a class="btn btn-outline-primary btn-lg" value="View your note" href="{{ url_for('view') }}">View Your Note</a>
+
+      </div>
+    </div>
+    <div class="col-lg-2">
+    </div>
+  </div>
 </div>
 {% endblock %}
 {% block scripts %} {{ super() }}

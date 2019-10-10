@@ -56,7 +56,7 @@ class Note(db.Model):
         if Note.query.filter_by(lookupId = inputUUID).first() is not None:
             return (Note.query.filter_by(lookupId = inputUUID).first().message + ", it has been viewed "  + str(Note.query.filter_by(lookupId = inputUUID).first().numViews))
         else:
-            return "Could not find the Note statistics"
+            return "The Note you requested could not be found! Either it does not exist or has been purged from the database for being mean."
 
     @staticmethod
     def getNote(inputUUID):
