@@ -15,6 +15,7 @@ class ViewForm(FlaskForm):
 
 class VoteForm(FlaskForm):
     like = SubmitField("Like")
+    skip = SubmitField("Skip")
     dislike = SubmitField("Dislike")
 
 class ReportForm(FlaskForm):

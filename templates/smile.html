@@ -28,7 +28,7 @@
       <form method="POST" action=" {{url_for('smile')}} ">
         <div class="btn-group" role="group" aria-label="Like or dislike">
         {{ form.like(class="btn btn-outline-success btn-lg")}}
-
+        {{ form.skip(class="btn btn-outline-primary btn-lg")}}
         {{ form.dislike(class="btn btn-outline-danger btn-lg")}}
         </div>
         {{ form.csrf_token}}

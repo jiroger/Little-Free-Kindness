@@ -1,5 +1,6 @@
 from app import db
 import datetime
+import time
 from random import randint
 import uuid
 from sqlalchemy.dialects.postgresql import UUID
@@ -42,10 +43,22 @@ class Note(db.Model):
     #passes a certain upvote threshold so mean notes are hidden
     @staticmethod
     def getRandomNote():
-        idNum = randint(1, Note.query.count() - 1) if Note.query.count() > 1 else Note.query.count()
-        Note.query.get(idNum).numViews = Note.query.get(idNum).numViews + 1
-        db.session.commit()
-        return Note.query.get(idNum)
+        timeout = 7
+        timeoutStart = time.time()
+        isNice = False
+        while (not isNice and time.time() < timeoutStart + timeout):
+            idNum = randint(1, Note.query.count() - 1) if Note.query.count() > 1 else Note.query.count()
+            try:
+                if (Note.query.get(idNum).numDislikes / Note.query.get(idNum).numLikes < 1):
+                    isNice = True
+            except:
+                if (Note.query.get(idNum).numDislikes < 5):
+                    isNice = True
+            if (isNice):
+                Note.query.get(idNum).numViews = Note.query.get(idNum).numViews + 1
+                db.session.commit()
+                return Note.query.get(idNum)
+        return Note(message="Uh oh! Looks like there are no more nice notes.", name="System Admin")
 
     @staticmethod
     def viewNote(inputUUID):
